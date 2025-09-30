@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\TodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('users/all', [UserController::class, 'all'])->name('users.all');
     Route::apiResource('users', UserController::class)->names('users');
 });
+
+Route::middleware('auth:api')->group(function () {
+        Route::get('/todos', [TodoController::class, 'index']);
+    });
