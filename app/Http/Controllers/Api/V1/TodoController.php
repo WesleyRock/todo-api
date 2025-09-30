@@ -42,4 +42,25 @@ final class TodoController extends BaseApiController
         $todos =$query->orderBy('created_at', 'desc')->paginate($perPage);
         return response()->json($todos);
     }
+
+    public function store(StoreTodoRequest $ruequest): JsonResponse
+    {
+        $data = $request->validated();
+        $data['user_id'] = $request->user()->id;
+
+        $todo = Todo::create($data);
+        return response()->json($todo, 201);
+    }
+
+    public function update(UpdateTodoRequest $request, int $id): JsonResponse
+    {
+        $todo = Todo::findOrFail($id);
+
+        $this->authorizeTodoOwner($request->user()->id, $todo);
+
+        $data = $request->validated();
+        $todo->update($data);
+
+        return response()->json($todo);
+    }
 }

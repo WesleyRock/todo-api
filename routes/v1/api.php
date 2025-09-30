@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\TodoController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-        Route::get('/todos', [TodoController::class, 'index']);
-    });
+    Route::get('/todos', [TodoController::class, 'index']);
+    Route::post('/todos', [TodoController::class, 'store']);
+    Route::put('/todos/{id}', [TodoController::class, 'update']);
+});
