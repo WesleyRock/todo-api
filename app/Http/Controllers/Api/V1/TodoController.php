@@ -9,7 +9,6 @@ use App\Http\Requests\Api\V1\Todo\StoreTodoRequest;
 use App\Http\Requests\Api\V1\Todo\UpdateTodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Requests;
 
 final class TodoController extends BaseApiController
 {
@@ -34,12 +33,13 @@ final class TodoController extends BaseApiController
                 FILTER_NULL_ON_FAILURE
             );
 
-            if (!is_null($completed)) {
+            if (! is_null($completed)) {
                 $query->where('completed', $completed);
             }
         }
 
-        $todos =$query->orderBy('created_at', 'desc')->paginate($perPage);
+        $todos = $query->orderBy('created_at', 'desc')->paginate($perPage);
+
         return response()->json($todos);
     }
 
@@ -49,6 +49,7 @@ final class TodoController extends BaseApiController
         $data['user_id'] = $request->user()->id;
 
         $todo = Todo::create($data);
+
         return response()->json($todo, 201);
     }
 
@@ -62,5 +63,17 @@ final class TodoController extends BaseApiController
         $todo->update($data);
 
         return response()->json($todo);
+    }
+
+    public function destroy(Resquest $request, int $id): JsonResponse
+    {
+
+        $todo = Todo::findOrFail($id);
+
+        $this->authorizeTodoOwner($request->user()->id, $todo);
+
+        $todo->delete();
+
+        return response()->json(null, 204);
     }
 }
