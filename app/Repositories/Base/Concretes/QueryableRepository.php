@@ -44,7 +44,7 @@ abstract class QueryableRepository extends BaseRepository implements QueryableRe
     /**
      * Get allowed filters for this repository.
      */
-    final public function getAllowedFilters(): array
+    public function getAllowedFilters(): array
     {
         return [];
     }
@@ -52,7 +52,7 @@ abstract class QueryableRepository extends BaseRepository implements QueryableRe
     /**
      * Get allowed sorts for this repository.
      */
-    final public function getAllowedSorts(): array
+    public function getAllowedSorts(): array
     {
         return [];
     }
@@ -60,7 +60,7 @@ abstract class QueryableRepository extends BaseRepository implements QueryableRe
     /**
      * Get allowed includes for this repository.
      */
-    final public function getAllowedIncludes(): array
+    public function getAllowedIncludes(): array
     {
         return [];
     }
@@ -68,7 +68,7 @@ abstract class QueryableRepository extends BaseRepository implements QueryableRe
     /**
      * Get allowed fields for this repository.
      */
-    final public function getAllowedFields(): array
+    public function getAllowedFields(): array
     {
         return [];
     }

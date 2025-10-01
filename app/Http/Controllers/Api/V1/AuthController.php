@@ -11,7 +11,7 @@ use App\Http\Resources\Api\User\UserResource;
 use App\Services\Contracts\AuthServiceInterface;
 use Illuminate\Http\JsonResponse;
 
-final class AuthController extends BaseApiController
+class AuthController extends BaseApiController
 {
     /**
      * AuthController constructor.
